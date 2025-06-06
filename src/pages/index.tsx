@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 
@@ -11,6 +11,15 @@ interface Todo {
 export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [text, setText] = useState('');
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    setDarkMode(localStorage.getItem('darkMode') === 'true');
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('darkMode', darkMode.toString());
+  }, [darkMode]);
 
   const addTodo = () => {
     if (!text.trim()) return;
@@ -27,13 +36,19 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${darkMode ? styles.dark : ''}`}>
       <Head>
         <title>Codex Todo</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>Todo List</h1>
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className={styles.toggleDark}
+        >
+          {darkMode ? 'Light Mode' : 'Dark Mode'}
+        </button>
         <div className={styles.inputRow}>
           <input
             value={text}

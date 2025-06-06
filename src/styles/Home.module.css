@@ -73,3 +73,26 @@
     margin: 0.5rem 0 0;
   }
 }
+
+.toggleDark {
+  margin-top: 1rem;
+}
+
+.dark {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark .item {
+  border-bottom: 1px solid #555;
+}
+
+.dark input {
+  background-color: #555;
+  color: #fff;
+}
+
+.dark button {
+  background-color: #666;
+  color: #fff;
+}
